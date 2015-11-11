@@ -7,12 +7,22 @@
     source: 'static/hexagon_empty.png'
     size_hint: None, None
     size: board_module.HEX_WIDTH, board_module.HEX_HEIGHT
-    #opacity: 0.1
+
+
+<HoverHexagon@EmptyHexagon>:
+    source: 'static/hexagon_hover.png'
+
 
 <GameBoard>:
+    hover_hex: hover_hex
+
     canvas:
         Color:
             rgb: 0.9, 0.9, 0.9
         Rectangle:
-            pos: self.pos
+            pos: 0, 0
             size: self.size
+            texture: self.texture
+
+    HoverHexagon:
+        id: hover_hex

@@ -1,13 +1,25 @@
 
 <MainIngameScreen>:
+    scroll_view: scroll_view
+    board: board
+    main_panel: main_panel
+
+
     RelativeLayout:
         size: self.parent.size
         pos: self.parent.pos
 
-        GameBoard:
+        ScrollView:
+            id: scroll_view
             size_hint: 0.9, 1
             pos_hint: {'x': 0.1, 'y':0}
 
+            GameBoard:
+                id: board
+                size_hint: 2, 2
+                pos_hint: {'x': 0, 'y':0}
+
         GamePanel:
+            id: main_panel
             size_hint: 0.1, 1
             pos_hint: {'x': 0, 'y':0}

@@ -1,31 +1,34 @@
 from math import sqrt, floor
 
-from kivy.uix.floatlayout import FloatLayout
+from kivy.properties import ObjectProperty
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.clock import Clock
 from kivy.uix.image import Image
 
-HEX_HEIGHT = 100
-HEX_WIDTH = HEX_HEIGHT / sqrt(3) * 2
-
 SQRT3 = sqrt(3)
+HEX_HEIGHT = 100
+HEX_WIDTH = HEX_HEIGHT / SQRT3 * 2
+
 
 class EmptyHexagon(Image):
     pass
 
 
-class GameBoard(FloatLayout):
+class GameBoard(RelativeLayout):
+    texture = ObjectProperty(None)
+
     def __init__(self,*args, **kwargs):
         super(GameBoard, self).__init__(*args, **kwargs)
-        self.tiles = []
-        Clock.schedule_once(self.render_hexagons)
+        self.tiles = {}
 
     def on_touch_down(self, touch):
         ix, iy = self.coords_to_ind(touch.x, touch.y)
         x, y = self.index_to_coord(ix, iy)
 
-        self.main_h.pos = [
-            x + self.center_x - HEX_WIDTH/2,
-            y + self.center_y - HEX_HEIGHT/2,
+        self.hover_hex.pos = [
+            x + self.center_x - self.x - HEX_WIDTH/2,
+            y + self.center_y - self.y - HEX_HEIGHT/2,
         ]
 
     def on_touch_move(self, touch):
@@ -38,7 +41,7 @@ class GameBoard(FloatLayout):
 
     def coords_to_ind(self, x, y):
         # TODO: optimize
-        x = x - self.center_x + HEX_HEIGHT/sqrt(3)
+        x = x - self.center_x + HEX_HEIGHT/SQRT3
         y = y - self.center_y + HEX_HEIGHT/2
 
         block_width = HEX_HEIGHT * SQRT3 / 2
@@ -73,31 +76,32 @@ class GameBoard(FloatLayout):
 
         return ix, iy
 
-    def render_hexagons(self, instance):
+    def clear_board(self):
+        for tile in self.tiles.values():
+            self.remove_widget(tile)
+
+    def render_hexagons(self, size):
+        self.clear_board()
+
         def _add(ix, iy):
             x, y = self.index_to_coord(ix, iy)
 
-            from random import random
-
             h = EmptyHexagon(
                 pos=[
-                    x + self.center_x - HEX_WIDTH/2,
-                    y + self.center_y - HEX_HEIGHT/2,
+                    x + self.center_x - self.x - HEX_WIDTH/2,
+                    y + self.center_y - self.y - HEX_HEIGHT/2,
                 ],
-                opacity=random(),
             )
             h.ind = (x, y)
+            self.tiles[h.ind] = h
             self.add_widget(h)
 
-        BOARD_SIZE = 8
-        for x in range(-BOARD_SIZE, BOARD_SIZE+1):
-            for y in range(-BOARD_SIZE, BOARD_SIZE+1):
-                if abs(x + y) > BOARD_SIZE:
+        for x in range(-size, size+1):
+            for y in range(-size, size+1):
+                if abs(x + y) > size:
                     continue
                 _add(x, y)
 
-        self.main_h = EmptyHexagon(
-            pos=[0, 0],
-            opacity=1,
-        )
-        self.add_widget(self.main_h)
+
+        self.texture = Image(source='static/background.jpg').texture
+        self.texture.wrap = 'repeat'
