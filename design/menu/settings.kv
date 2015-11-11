@@ -1,0 +1,20 @@
+
+<SettingsMenuScreen>:
+
+    FloatLayout:
+        size: self.parent.size
+        pos: self.parent.pos
+
+        canvas:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Button:
+            text: 'Back'
+            size_hint: 0.1, 0.1
+            pos_hint: {'x':0, 'y':0}
+            on_press:
+                app.switch_screen('menu_main')

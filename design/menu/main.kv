@@ -1,0 +1,26 @@
+
+<MainMenuScreen>:
+
+    RelativeLayout:
+        size: self.parent.size
+        pos: self.parent.pos
+
+        canvas:
+            Rectangle:
+                source: 'static/background.png'
+                size: self.size
+                pos: self.pos
+
+        Button:
+            text: 'Start'
+            size_hint: 0.9, 0.2
+            pos_hint: {'x':0.05, 'y':0.5}
+            on_press:
+                app.switch_screen('main_ingame')
+
+        Button:
+            size_hint: 0.9, 0.2
+            pos_hint: {'x': 0.05, 'y': 0.1}
+            text: 'Settings'
+            on_press:
+                app.switch_screen('menu_settings')
