@@ -1,9 +1,10 @@
 
 <MainIngameScreen>:
+    id: main_ingame_screen
     scroll_view: scroll_view
     board: board
     main_panel: main_panel
-
+    top_layer: top_layer
 
     RelativeLayout:
         size: self.parent.size
@@ -16,8 +17,25 @@
 
             GameBoard:
                 id: board
-                size_hint: 2, 2
+                top_layer: top_layer
+                main_ingame_screen: main_ingame_screen
+                size_hint: None, None
                 pos_hint: {'x': 0, 'y':0}
+
+        BoardTopLayer:
+            id: top_layer
+            board: board
+            size_hint: 0.9, 1
+            pos_hint: {'x': 0.1, 'y':0}
+            opacity: 0
+
+            canvas:
+                Color:
+                    rgba: 0, 0, 0, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: 0, 0
+
 
         GamePanel:
             id: main_panel

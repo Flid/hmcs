@@ -1,0 +1,3 @@
+title=MyGame
+author=Flid	
+orientation=landscape

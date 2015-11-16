@@ -6,7 +6,11 @@
 <EmptyHexagon>:
     source: 'static/hexagon_empty.png'
     size_hint: None, None
-    size: board_module.HEX_WIDTH, board_module.HEX_HEIGHT
+
+
+<UndiscoveredHexagon>:
+    source: 'static/hex_back.png'
+    size_hint: None, None
 
 
 <HoverHexagon@EmptyHexagon>:
@@ -23,6 +27,7 @@
             pos: 0, 0
             size: self.size
             texture: self.texture
+
 
     HoverHexagon:
         id: hover_hex
