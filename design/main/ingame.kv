@@ -7,13 +7,16 @@
     top_layer: top_layer
 
     RelativeLayout:
-        size: self.parent.size
-        pos: self.parent.pos
+        id: scroll_view
+        size_hint: 0.9, 1
+        pos_hint: {'x': 0.1, 'y': 0}
 
-        ScrollView:
+        ScaleScrollView:
             id: scroll_view
-            size_hint: 0.9, 1
-            pos_hint: {'x': 0.1, 'y':0}
+            size_hint: None, None
+            size: 100, 100
+            pos: 0, 0
+            do_rotation: False
 
             GameBoard:
                 id: board
@@ -21,23 +24,28 @@
                 main_ingame_screen: main_ingame_screen
                 size_hint: None, None
                 pos_hint: {'x': 0, 'y':0}
+                canvas:
+                    Rectangle:
+                        pos: 0, 0
+                        size: 5000, 5000
+                        source: 'static/background.jpg'
 
-        BoardTopLayer:
-            id: top_layer
-            board: board
-            size_hint: 0.9, 1
-            pos_hint: {'x': 0.1, 'y':0}
-            opacity: 0
+    BoardTopLayer:
+        id: top_layer
+        board: board
+        size_hint: 0.9, 1
+        pos_hint: {'x': 0.1, 'y':0}
+        opacity: 0
 
-            canvas:
-                Color:
-                    rgba: 0, 0, 0, 0.5
-                Rectangle:
-                    size: self.size
-                    pos: 0, 0
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 0.5
+            Rectangle:
+                size: self.size
+                pos: 0, 0
 
 
-        GamePanel:
-            id: main_panel
-            size_hint: 0.1, 1
-            pos_hint: {'x': 0, 'y':0}
+    GamePanel:
+        id: main_panel
+        size_hint: 0.1, 1
+        pos_hint: {'x': 0, 'y':0}

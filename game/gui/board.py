@@ -5,6 +5,7 @@ from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.clock import Clock
 from kivy.graphics import Color, Rectangle
+from .scale_scroll_view import ScaleScrollView
 from kivy.animation import Animation
 from kivy.uix.image import Image
 from kivy.core.window import Window
@@ -16,6 +17,10 @@ class EmptyHexagon(Image):
 
 
 class UndiscoveredHexagon(Image):
+    pass
+
+
+class ScrollScaleLayout(ScrollView):
     pass
 
 
@@ -42,8 +47,9 @@ class BoardTopLayer(RelativeLayout):
     def on_touch_up(self, touch):
         if touch.grab_current is self:
             touch.ungrab(self)
-            self.hide_tile()
-            return True
+            if self.collide_point(*touch.pos):
+                self.hide_tile()
+                return True
 
     def on_is_locked(self, instance, blocked):
         self.show_anim.stop(self)
@@ -95,7 +101,7 @@ class GameBoard(RelativeLayout):
         super(GameBoard, self).__init__(*args, **kwargs)
         self.board_size = 0
         self.tiles = {}
-        self.tile_height = Window.dpi
+        self.tile_height = Window.dpi * 2
         self.tile_width = self.tile_height / SQRT3 * 2
 
     def on_touch_down(self, touch):
@@ -103,8 +109,22 @@ class GameBoard(RelativeLayout):
         if not res:
             return
 
-        tile = self.tiles[res]
-        self.send_tile_to_top_layer(tile)
+        touch.grab(self)
+        touch.ud = {'start_ind': res}
+
+    def on_touch_up(self, touch):
+        if touch.grab_current is not self:
+            return
+
+        touch.ungrab(self)
+        res = self.coords_to_ind(touch.x, touch.y)
+        if res is None:
+            return
+
+        if touch.ud and touch.ud.get('start_ind') == res:
+            tile = self.tiles[res]
+            self.send_tile_to_top_layer(tile)
+            return True
 
     def send_tile_to_top_layer(self, tile):
         tile.pos = self.parent.to_parent(*tile.pos)
@@ -197,6 +217,8 @@ class GameBoard(RelativeLayout):
         self.clear_board()
         self.width = (size * 2 + 3) * self.tile_width * 3 / 4.0
         self.height = (size * 2 + 3) * self.tile_height
+        self.parent.size = self.size
+        self.parent.parent.size = self.size
 
         def _add(ix, iy):
             x, y = self.index_to_coord(ix, iy)
