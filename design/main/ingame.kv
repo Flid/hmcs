@@ -7,16 +7,18 @@
     top_layer: top_layer
 
     RelativeLayout:
-        id: scroll_view
+        id: game_area
         size_hint: 0.9, 1
         pos_hint: {'x': 0.1, 'y': 0}
 
         ScaleScrollView:
             id: scroll_view
             size_hint: None, None
-            size: 100, 100
             pos: 0, 0
             do_rotation: False
+            scale_min: 0.1
+            scale_max: 2
+            auto_bring_to_front: False
 
             GameBoard:
                 id: board
@@ -27,22 +29,22 @@
                 canvas:
                     Rectangle:
                         pos: 0, 0
-                        size: 5000, 5000
+                        size: self.size
                         source: 'static/background.jpg'
 
-    BoardTopLayer:
-        id: top_layer
-        board: board
-        size_hint: 0.9, 1
-        pos_hint: {'x': 0.1, 'y':0}
-        opacity: 0
+        BoardTopLayer:
+            id: top_layer
+            board: board
+            size_hint: 1, 1
+            pos_hint: {'x': 0, 'y':0}
+            opacity: 0
 
-        canvas:
-            Color:
-                rgba: 0, 0, 0, 0.5
-            Rectangle:
-                size: self.size
-                pos: 0, 0
+            canvas:
+                Color:
+                    rgba: 0, 0, 0, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: 0, 0
 
 
     GamePanel:

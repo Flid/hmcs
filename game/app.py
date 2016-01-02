@@ -23,7 +23,6 @@ class MyGameApp(App):
             'design/menu/settings.kv',
             'design/main/board.kv',
             'design/main/panels.kv',
-
             'design/main/ingame.kv',
         ]:
             Builder.load_file(path)

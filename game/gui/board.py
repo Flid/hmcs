@@ -24,6 +24,37 @@ class ScrollScaleLayout(ScrollView):
     pass
 
 
+def pos_to_parent_chained(instance, target_parent):
+    """
+    Get `pos` of `instance` in target parent's coordinates.
+    """
+    pos = instance.to_parent(*instance.pos)
+
+    while instance.parent != target_parent:
+        instance = instance.parent
+        pos = instance.to_parent(*pos)
+
+    return pos
+
+
+def pos_to_local(pos, current_layout, target_child):
+    """
+    Get `pos` of `instance` in target child`s coordinates.
+    """
+    parents = []
+
+    child = target_child
+    while child != current_layout:
+        parents.append(child)
+        child = child.parent
+
+    while parents:
+        parent = parents.pop()
+        pos = parent.to_local(*pos)
+
+    return pos
+
+
 class BoardTopLayer(RelativeLayout):
     is_locked = BooleanProperty(False)
     current_tile = ObjectProperty(None)
@@ -66,8 +97,6 @@ class BoardTopLayer(RelativeLayout):
 
         self.is_locked = False
         self.remove_widget(self.current_tile)
-
-        self.current_tile.pos = self.to_parent(*self.current_tile.pos)
         self._return_func(self.current_tile)
 
     def show_tile(self, tile, return_func):
@@ -75,8 +104,6 @@ class BoardTopLayer(RelativeLayout):
         self.current_tile = tile
         self.is_locked = True
         self.add_widget(tile)
-
-        tile.pos = self.to_local(*tile.pos)
 
         new_size = self.width * 0.75, self.height * 0.75
         new_pos = self.to_local(
@@ -104,6 +131,23 @@ class GameBoard(RelativeLayout):
         self.tile_height = Window.dpi * 2
         self.tile_width = self.tile_height / SQRT3 * 2
 
+    def on_size(self, instance, value):
+        if not self.main_ingame_screen:
+            return
+
+        scale_min = self.main_ingame_screen.ids['game_area'].width / self.width
+        scale_min = max(
+            scale_min,
+            self.main_ingame_screen.ids['game_area'].height / self.height,
+        )
+
+        if scale_min < 0.1:
+            scale_min = 0.1
+        elif scale_min > 1:
+            scale_min = 1
+
+        self.main_ingame_screen.ids['scroll_view'].scale_min = scale_min
+
     def on_touch_down(self, touch):
         res = self.coords_to_ind(touch.x, touch.y)
         if not res:
@@ -127,12 +171,13 @@ class GameBoard(RelativeLayout):
             return True
 
     def send_tile_to_top_layer(self, tile):
-        tile.pos = self.parent.to_parent(*tile.pos)
+        new_pos = pos_to_parent_chained(tile, self.main_ingame_screen.ids['game_area'])
         self.remove_widget(tile)
+        tile.pos = new_pos
         self.top_layer.show_tile(tile, self.return_tile_from_top_layer)
 
     def return_tile_from_top_layer(self, tile):
-        tile.pos = self.parent.to_local(*tile.pos)
+        tile.pos = pos_to_local(tile.pos, self.main_ingame_screen.ids['game_area'], self)
         self.add_widget(tile)
 
         target_pos = self.to_local(*self.index_to_coord(*tile.ind))
@@ -203,7 +248,7 @@ class GameBoard(RelativeLayout):
         ix = block_x + x_shift
         iy = round(block_y - block_x / 2 + y_shift)
 
-        if abs(ix + iy) > self.board_size:
+        if abs(ix + iy) > self.board_size or max(abs(ix), abs(iy)) > self.board_size:
             return
 
         return ix, iy
