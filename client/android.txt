@@ -1,0 +1,3 @@
+title=HMCS
+author=Flid	
+orientation=landscape

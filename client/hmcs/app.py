@@ -3,27 +3,20 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 
 
-class MainMenuScreen(Screen):
-    _name = 'menu_main'
+class MainScreen(Screen):
+    _name = 'main'
 
 
 class SettingsMenuScreen(Screen):
-    _name = 'menu_settings'
+    _name = 'settings'
 
 
-class MainIngameScreen(Screen):
-    _name = 'main_ingame'
-
-
-class MyGameApp(App):
+class HMCSApp(App):
     def build(self):
         for path in [
             'design/debug.kv',
-            'design/menu/main.kv',
-            'design/menu/settings.kv',
-            'design/main/board.kv',
-            'design/main/panels.kv',
-            'design/main/ingame.kv',
+            'design/main_screen.kv',
+            'design/settings_screen.kv',
         ]:
             Builder.load_file(path)
 
@@ -31,8 +24,7 @@ class MyGameApp(App):
         self.screens = {}
 
         for screen_cls in [
-            MainIngameScreen,
-            MainMenuScreen,
+            MainScreen,
             SettingsMenuScreen,
         ]:
             screen = screen_cls(name=screen_cls._name)

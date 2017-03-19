@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = TheGame
+title = Home Media Control Server
 
 # (str) Package name
-package.name = thegame
+package.name = HMCS
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test

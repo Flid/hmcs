@@ -1,0 +1,34 @@
+#:import SaveSettingsButton hmcs.gui.settings.SaveSettingsButton
+
+<SettingsMenuScreen>:
+    FloatLayout:
+        server_url: server_url
+
+        size: self.parent.size
+        pos: self.parent.pos
+
+        canvas:
+            Color:
+                rgb: 0.4, 0.4, 0.6
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        TextInput:
+            id: server_url
+            size_hint: 0.8, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.85}
+            font_size: '25sp'
+
+        SaveSettingsButton:
+            text: 'Save'
+            size_hint: 0.8, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.15}
+
+        Button:
+            text: 'Back'
+            size_hint: 0.8, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.03}
+            on_press:
+                app.switch_screen('main')
