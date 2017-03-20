@@ -11,6 +11,6 @@ socketio = SocketIO(app)
 
 
 def init():
-    from . import views, websockets  # noqa
+    from . import websockets  # noqa
     DictConfigurator(config.LOGGING).configure()
     socketio.run(app, debug=config.DEBUG, use_reloader=config.DEBUG)

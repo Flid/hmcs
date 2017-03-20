@@ -1,6 +1,4 @@
-from hmcs.app import app, init
-from hmcs.views import *
+from hmcs.app import init
 
-db.create_all()
 init()
 

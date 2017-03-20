@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
+from .api_client import APIClient
 
 
 class MainScreen(Screen):
@@ -13,6 +14,8 @@ class SettingsMenuScreen(Screen):
 
 class HMCSApp(App):
     def build(self):
+        self.api_client = APIClient()
+
         for path in [
             'design/debug.kv',
             'design/main_screen.kv',

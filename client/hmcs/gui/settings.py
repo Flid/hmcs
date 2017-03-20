@@ -1,16 +1,7 @@
 from kivy.config import Config
 from kivy.uix.button import Button
 from kivy.clock import Clock
-
-
-def read_configs():
-    return {
-        'server_url': Config.getdefault(
-            'main',
-            'server_url',
-            'http://0.0.0.0',
-        ),
-    }
+from hmcs.utils import read_configs
 
 
 class SaveSettingsButton(Button):
