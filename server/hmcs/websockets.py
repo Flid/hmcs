@@ -1,7 +1,5 @@
 import logging
 
-from flask_socketio import emit, join_room, leave_room
-
 from .app import socketio, app
 
 log = logging.getLogger(__name__)

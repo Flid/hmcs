@@ -1,5 +1,6 @@
 import os
 import sys
+from collections import OrderedDict
 
 
 DEBUG = os.environ.get('DEBUG', False)
@@ -47,6 +48,13 @@ LOGGING = {
 }
 
 
-PLUGINS_ENABLED = [
-    'hmcs.plugins.led_panel_control.LedPanelControlPlugin'
-]
+PLUGINS_ENABLED = OrderedDict([
+    ('led_control_panel', 'hmcs.plugins.led_panel_control.LedPanelControlPlugin'),
+])
+
+PLUGIN_CONFIG = {
+    'led_control_panel': {
+        'executable_cwd': '/home/anton',
+        'executable_args': ['/usr/bin/python', 'test.py'],
+    }
+}
