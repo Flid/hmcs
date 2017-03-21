@@ -2,7 +2,6 @@ import os
 import sys
 from collections import OrderedDict
 
-
 DEBUG = os.environ.get('DEBUG', False)
 
 LOGGING = {

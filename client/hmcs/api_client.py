@@ -1,9 +1,10 @@
-from hmcs.utils import read_configs
-from socketIO_client import SocketIO, LoggingNamespace
-from socketIO_client.exceptions import ConnectionError
 import logging
-from kivy.event import EventDispatcher
+
+from hmcs.utils import read_configs
 from kivy.app import App
+from kivy.event import EventDispatcher
+from socketIO_client import LoggingNamespace, SocketIO
+from socketIO_client.exceptions import ConnectionError
 
 log = logging.getLogger(__name__)
 

@@ -1,7 +1,8 @@
-from .base import PluginBase
 import logging
 import subprocess
 from signal import SIGINT
+
+from .base import PluginBase
 
 log = logging.getLogger(__name__)
 

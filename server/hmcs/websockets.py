@@ -1,6 +1,6 @@
 import logging
 
-from .app import socketio, app
+from .app import app, socketio
 
 log = logging.getLogger(__name__)
 

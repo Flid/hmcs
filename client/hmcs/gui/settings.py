@@ -1,8 +1,8 @@
-from kivy.config import Config
-from kivy.uix.button import Button
-from kivy.clock import Clock
 from hmcs.utils import read_configs
 from kivy.app import App
+from kivy.clock import Clock
+from kivy.config import Config
+from kivy.uix.button import Button
 
 
 class SaveSettingsButton(Button):
