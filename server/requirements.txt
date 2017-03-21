@@ -3,3 +3,4 @@ flask_socketio==2.8.5
 gevent-websocket==0.10.1
 gevent==1.2.1
 axel==0.0.7
+pygame

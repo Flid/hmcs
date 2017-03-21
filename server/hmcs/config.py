@@ -65,5 +65,6 @@ PLUGIN_CONFIG = {
         'connect_cmd': os.environ['BT_CONNECT_COMMAND'],
     },
     'lullaby_control': {
+        'file_path': os.environ['LULLABY_FILE_PATH'],
     },
 }

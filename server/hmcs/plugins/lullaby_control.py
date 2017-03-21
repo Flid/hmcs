@@ -2,7 +2,7 @@ import logging
 import os
 import subprocess
 from signal import SIGINT
-
+from pygame import mixer
 from .base import PluginBase
 
 log = logging.getLogger(__name__)
@@ -15,13 +15,23 @@ class LullabyControlPlugin(PluginBase):
             self.on_mode_change,
         )
 
-        self._running_instance = None
+        self._playing = False
+        mixer.init()
 
     def _start_instance(self):
-        pass # TODO
+        if self._playing:
+            return
+
+        mixer.music.load(self._config['file_path'])
+        mixer.play(loop=-1)
+        self._playing = True
 
     def _stop_instance(self):
-        pass # TODO
+        if not self._playing:
+            return
+
+        mixer.stop()
+        self._playing = False
 
     def on_mode_change(self, data):
         new_mode = data['new_mode']
