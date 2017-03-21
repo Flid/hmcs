@@ -12,5 +12,11 @@ socketio = SocketIO(app)
 
 def init():
     from . import websockets  # noqa
+    from .plugins.base import PluginManager
+
     DictConfigurator(config.LOGGING).configure()
+
+    app.plugin_manager = PluginManager()
+    app.plugin_manager.init_plugins()
+
     socketio.run(app, debug=config.DEBUG, use_reloader=config.DEBUG)

@@ -38,10 +38,15 @@ LOGGING = {
     },
 
     'loggers': {
-        'shooting_ground': {
+        'hmcs': {
             'level': 'DEBUG',
             'handlers': ['console'],
-            'propagate': True,
+            'propagate': False,
         },
     },
 }
+
+
+PLUGINS_ENABLED = [
+    'hmcs.plugins.led_panel_control.LedPanelControlPlugin'
+]
