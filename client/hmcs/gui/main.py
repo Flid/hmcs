@@ -21,7 +21,7 @@ class LCDControlSwitchOff(BaseLCDControlSwitch):
 
 class ErrorLabel(Label):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(ErrorLabel, self).__init__(*args, **kwargs)
         App.get_running_app().api_client.bind(on_error=self.on_error)
 
     def on_error(self, instance, message):

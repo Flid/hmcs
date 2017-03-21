@@ -1,13 +1,14 @@
-from hmcs.utils import read_configs
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
 from kivy.uix.button import Button
 
+from hmcs.utils import read_configs
+
 
 class SaveSettingsButton(Button):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(SaveSettingsButton, self).__init__(*args, **kwargs)
         Clock.schedule_once(self._load_settings, 0)
 
     def _load_settings(self, _):

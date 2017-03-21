@@ -2,5 +2,7 @@ kivy==1.9.1
 pygame==1.9.3
 Cython==0.25.2
 socketIO-client==0.7.2
-gevent-websocket==0.10.1
-gevent==1.2.1
+buildozer==0.32
+colorama==0.3.7
+sh==1.12.11
+requests
