@@ -1,10 +1,11 @@
 import logging
 
-from hmcs.utils import read_configs
 from kivy.app import App
 from kivy.event import EventDispatcher
 from socketIO_client import LoggingNamespace, SocketIO
 from socketIO_client.exceptions import ConnectionError
+
+from hmcs.utils import read_configs
 
 log = logging.getLogger(__name__)
 
@@ -41,8 +42,21 @@ class APIClient(EventDispatcher):
             self.dispatch('on_error', 'Failed to connect to server')
             return False
 
-    def set_baby_magnet_mode(self, mode):
+    def _emit(self, event, data):
         if not self._connect():
             return
 
-        self._socket.emit('set_led_panel_mode', mode)
+        try:
+            self._socket.emit(event, data)
+        except ConnectionError:
+            log.error('Failed to emit event %s', event)
+            self.dispatch('on_error', 'Failed to send command')
+
+    def set_baby_magnet_mode(self, mode):
+        self._emit('set_led_panel_mode', mode)
+
+    def set_lullaby_mode(self, mode):
+        self._emit('set_lullaby_mode', mode)
+
+    def connect_bluetooth(self):
+        self._emit('connect_bluetooth', None)

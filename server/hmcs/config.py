@@ -50,12 +50,20 @@ SERVER_PORT = 5000
 
 PLUGINS_ENABLED = OrderedDict([
     ('led_control_panel', 'hmcs.plugins.led_panel_control.LedPanelControlPlugin'),
+    ('bt_connect', 'hmcs.plugins.bt_connect.BluetoothConnectPlugin'),
+    ('lullaby_control', 'hmcs.plugins.lullaby_control.LullabyControlPlugin'),
 ])
+
 
 PLUGIN_CONFIG = {
     'led_control_panel': {
         'executable_cwd': os.environ['LED_CONTROL_CWD'],
         'executable_args': os.environ['LED_CONTROL_COMMAND'],
         'stop_command': os.environ['LED_CONTROL_STOP_COMMAND'],
+    },
+    'bt_connect': {
+        'connect_cmd': os.environ['BT_CONNECT_COMMAND'],
+    },
+    'lullaby_control': {
     },
 }

@@ -1,7 +1,7 @@
 from kivy.config import Config
 
 SETTINGS_DEFAULTS = {
-    'server_host': 'localhost',
+    'server_host': '192.168.0.11',
     'server_port': '5000',
 }
 

@@ -24,6 +24,7 @@ class LedPanelControlPlugin(PluginBase):
         self._running_instance = subprocess.Popen(
             self._config['executable_args'],
             cwd=self._config['executable_cwd'],
+            shell=True,
         )
 
     def _stop_instance(self):
@@ -31,11 +32,12 @@ class LedPanelControlPlugin(PluginBase):
             return
 
         self._running_instance.send_signal(SIGINT)
-        self._running_instance.wait(timeout=1)
 
-        if self._running_instance.returncode is None:
+        try:
+            self._running_instance.wait(timeout=1)
+        except subprocess.TimeoutExpired:
             log.info('Process declines to stop, terminating...')
-            self._running_instance.ternimate()
+            self._running_instance.terminate()
 
         self._running_instance = None
 

@@ -1,5 +1,8 @@
 #:import LCDControlSwitchOn hmcs.gui.main.LCDControlSwitchOn
 #:import LCDControlSwitchOff hmcs.gui.main.LCDControlSwitchOff
+#:import LullabyControlSwitchOn hmcs.gui.main.LullabyControlSwitchOn
+#:import LullabyControlSwitchOff hmcs.gui.main.LullabyControlSwitchOff
+#:import BluetoothConnectButton hmcs.gui.main.BluetoothConnectButton
 #:import ErrorLabel hmcs.gui.main.ErrorLabel
 
 <MainScreen>:
@@ -33,6 +36,21 @@
             text: 'Off'
             size_hint: 0.35, 0.1
             pos_hint: {'x': 0.55, 'y': 0.75}
+
+        BluetoothConnectButton:
+            text: 'BT On'
+            size_hint: 0.25, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.6}
+
+        LullabyControlSwitchOn:
+            text: 'On'
+            size_hint: 0.25, 0.1
+            pos_hint: {'x': 0.37, 'y': 0.6}
+
+        LullabyControlSwitchOn:
+            text: 'Off'
+            size_hint: 0.25, 0.1
+            pos_hint: {'x': 0.65, 'y': 0.6}
 
         ErrorLabel:
             id: error_label

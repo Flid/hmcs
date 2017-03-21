@@ -19,6 +19,26 @@ class LCDControlSwitchOff(BaseLCDControlSwitch):
     new_mode = False
 
 
+class BaselLullabyControlSwitch(Button):
+    action = None
+
+    def on_press(self):
+        App.get_running_app().api_client.set_lullaby_mode(self.new_mode)
+
+
+class LullabyControlSwitchOn(BaselLullabyControlSwitch):
+    new_mode = True
+
+
+class LullabyControlSwitchOff(BaselLullabyControlSwitch):
+    new_mode = False
+
+
+class BluetoothConnectButton(Button):
+    def on_press(self):
+        App.get_running_app().api_client.connect_bluetooth()
+
+
 class ErrorLabel(Label):
     def __init__(self, *args, **kwargs):
         super(ErrorLabel, self).__init__(*args, **kwargs)
