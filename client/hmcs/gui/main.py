@@ -1,7 +1,8 @@
-from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.button import Button
-from socketIO_client import SocketIO
+from kivy.uix.label import Label
 from kivy.app import App
+from kivy.clock import Clock
+
 
 class BaseLCDControlSwitch(Button):
     action = None
@@ -16,3 +17,18 @@ class LCDControlSwitchOn(BaseLCDControlSwitch):
 
 class LCDControlSwitchOff(BaseLCDControlSwitch):
     new_mode = False
+
+
+class ErrorLabel(Label):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        App.get_running_app().api_client.bind(on_error=self.on_error)
+
+    def on_error(self, instance, message):
+        self.text = message
+
+        Clock.unschedule(self.clean_text, all=True)
+        Clock.schedule_interval(self.clean_text, 2)
+
+    def clean_text(self, instance):
+        self.text = ''

@@ -1,5 +1,6 @@
 #:import LCDControlSwitchOn hmcs.gui.main.LCDControlSwitchOn
 #:import LCDControlSwitchOff hmcs.gui.main.LCDControlSwitchOff
+#:import ErrorLabel hmcs.gui.main.ErrorLabel
 
 <MainScreen>:
     id: main_screen
@@ -32,6 +33,14 @@
             text: 'Off'
             size_hint: 0.35, 0.1
             pos_hint: {'x': 0.55, 'y': 0.75}
+
+        ErrorLabel:
+            id: error_label
+            size_hint: 0.8, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.2}
+            text: ''
+            color: 0.8, 0.2, 0.2, 1
+            font_size: '20sp'
 
         Button:
             text: 'Settings'

@@ -2,7 +2,8 @@
 
 <SettingsMenuScreen>:
     FloatLayout:
-        server_url: server_url
+        server_host: server_host
+        server_port: server_port
 
         size: self.parent.size
         pos: self.parent.pos
@@ -16,9 +17,15 @@
                 size: self.size
 
         TextInput:
-            id: server_url
+            id: server_host
             size_hint: 0.8, 0.1
             pos_hint: {'x': 0.1, 'y': 0.85}
+            font_size: '25sp'
+
+        TextInput:
+            id: server_port
+            size_hint: 0.8, 0.1
+            pos_hint: {'x': 0.1, 'y': 0.7}
             font_size: '25sp'
 
         SaveSettingsButton:

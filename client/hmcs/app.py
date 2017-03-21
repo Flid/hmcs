@@ -14,6 +14,8 @@ class SettingsMenuScreen(Screen):
 
 class HMCSApp(App):
     def build(self):
+        self.register_event_type('on_settings_changed')
+
         self.api_client = APIClient()
 
         for path in [
@@ -35,6 +37,9 @@ class HMCSApp(App):
             self.sm.add_widget(screen)
 
         return self.sm
+
+    def on_settings_changed(self):
+        pass
 
     def switch_screen(self, screen_name, direction='left'):
         self.sm.transition.direction = direction
