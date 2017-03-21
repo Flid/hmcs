@@ -18,4 +18,10 @@ def init():
     app.plugin_manager = PluginManager()
     app.plugin_manager.init_plugins()
 
-    socketio.run(app, debug=config.DEBUG, use_reloader=config.DEBUG)
+    socketio.run(
+        app,
+        debug=config.DEBUG,
+        use_reloader=config.DEBUG,
+        host='0.0.0.0',
+        port=config.SERVER_PORT,
+    )

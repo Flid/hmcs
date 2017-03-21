@@ -1,4 +1,5 @@
 import os
+import shlex
 import sys
 from collections import OrderedDict
 
@@ -46,6 +47,7 @@ LOGGING = {
     },
 }
 
+SERVER_PORT = 5000
 
 PLUGINS_ENABLED = OrderedDict([
     ('led_control_panel', 'hmcs.plugins.led_panel_control.LedPanelControlPlugin'),
@@ -53,7 +55,7 @@ PLUGINS_ENABLED = OrderedDict([
 
 PLUGIN_CONFIG = {
     'led_control_panel': {
-        'executable_cwd': '/home/anton',
-        'executable_args': ['/usr/bin/python', 'test.py'],
-    }
+        'executable_cwd': os.environ['LED_CONTROL_CWD'],
+        'executable_args': shlex.split(os.environ['LED_CONTROL_COMMAND']),
+    },
 }
