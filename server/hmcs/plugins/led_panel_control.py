@@ -1,4 +1,5 @@
 import logging
+import os
 import subprocess
 from signal import SIGINT
 
@@ -37,6 +38,8 @@ class LedPanelControlPlugin(PluginBase):
             self._running_instance.ternimate()
 
         self._running_instance = None
+
+        os.system(self._config['stop_command'])
 
     def on_mode_change(self, data):
         new_mode = data['new_mode']

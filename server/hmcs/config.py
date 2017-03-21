@@ -1,5 +1,4 @@
 import os
-import shlex
 import sys
 from collections import OrderedDict
 
@@ -56,6 +55,7 @@ PLUGINS_ENABLED = OrderedDict([
 PLUGIN_CONFIG = {
     'led_control_panel': {
         'executable_cwd': os.environ['LED_CONTROL_CWD'],
-        'executable_args': shlex.split(os.environ['LED_CONTROL_COMMAND']),
+        'executable_args': os.environ['LED_CONTROL_COMMAND'],
+        'stop_command': os.environ['LED_CONTROL_STOP_COMMAND'],
     },
 }
