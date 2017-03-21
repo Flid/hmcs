@@ -16,21 +16,22 @@ class LullabyControlPlugin(PluginBase):
         )
 
         self._playing = False
-        mixer.init()
 
     def _start_instance(self):
         if self._playing:
             return
 
+        mixer.init()
         mixer.music.load(self._config['file_path'])
-        mixer.play(loop=-1)
+        mixer.music.play(loops=-1)
         self._playing = True
 
     def _stop_instance(self):
         if not self._playing:
             return
 
-        mixer.stop()
+        mixer.music.stop()
+        mixer.quit()
         self._playing = False
 
     def on_mode_change(self, data):
