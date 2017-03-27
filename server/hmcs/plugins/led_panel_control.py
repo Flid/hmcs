@@ -17,12 +17,16 @@ class LedPanelControlPlugin(PluginBase):
 
         self._running_instance = None
 
-    def _start_instance(self):
+    def _start_instance(self, brightness):
         if self._running_instance:
             return
 
+        cmd = self._config['executable_args'].format(
+            brightness=brightness,
+        )
+
         self._running_instance = subprocess.Popen(
-            self._config['executable_args'],
+            cmd,
             cwd=self._config['executable_cwd'],
             shell=True,
         )
@@ -49,6 +53,6 @@ class LedPanelControlPlugin(PluginBase):
         log.info('Changing LED panel mode to: %s', new_mode)
 
         if new_mode:
-            self._start_instance()
+            self._start_instance(data.get('brightness') or 70)
         else:
             self._stop_instance()

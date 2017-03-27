@@ -1,7 +1,4 @@
 import logging
-import os
-import subprocess
-from signal import SIGINT
 from pygame import mixer
 from .base import PluginBase
 
