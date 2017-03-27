@@ -27,12 +27,25 @@
             text: 'Baby Magnet:'
             font_size: '20sp'
 
+        Slider:
+            id: brightness_slider
+
+            size_hint: 0.8, 0.05
+            pos_hint: {'x': 0.1, 'y': 0.87}
+            min: 0
+            max: 100
+            value: 70
+            step: 1
+
+
         LCDControlSwitchOn:
+            brightness_slider: brightness_slider
             text: 'On'
             size_hint: 0.35, 0.1
             pos_hint: {'x': 0.1, 'y': 0.75}
 
         LCDControlSwitchOff:
+            brightness_slider: brightness_slider
             text: 'Off'
             size_hint: 0.35, 0.1
             pos_hint: {'x': 0.55, 'y': 0.75}

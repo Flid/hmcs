@@ -16,10 +16,10 @@ def test_disconnect():
 
 
 @socketio.on('set_led_panel_mode', namespace='/')
-def on_set_led_panel_mode(new_mode):
+def on_set_led_panel_mode(data):
     app.plugin_manager.socket_event_received(
         'set_led_panel_mode',
-        {'new_mode': new_mode},
+        data,
     )
 
 

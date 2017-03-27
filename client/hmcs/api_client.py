@@ -1,11 +1,10 @@
 import logging
 
+from hmcs.utils import read_configs
 from kivy.app import App
 from kivy.event import EventDispatcher
 from socketIO_client import LoggingNamespace, SocketIO
 from socketIO_client.exceptions import ConnectionError
-
-from hmcs.utils import read_configs
 
 log = logging.getLogger(__name__)
 
@@ -52,8 +51,11 @@ class APIClient(EventDispatcher):
             log.error('Failed to emit event %s', event)
             self.dispatch('on_error', 'Failed to send command')
 
-    def set_baby_magnet_mode(self, mode):
-        self._emit('set_led_panel_mode', mode)
+    def set_baby_magnet_mode(self, mode, brightness):
+        self._emit(
+            'set_led_panel_mode',
+            {'new_mode': mode, 'brightness': brightness},
+        )
 
     def set_lullaby_mode(self, mode):
         self._emit('set_lullaby_mode', mode)

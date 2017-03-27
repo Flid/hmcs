@@ -8,7 +8,10 @@ class BaseLCDControlSwitch(Button):
     action = None
 
     def on_press(self):
-        App.get_running_app().api_client.set_baby_magnet_mode(self.new_mode)
+        App.get_running_app().api_client.set_baby_magnet_mode(
+            self.new_mode,
+            self.brightness_slider.value,
+        )
 
 
 class LCDControlSwitchOn(BaseLCDControlSwitch):
