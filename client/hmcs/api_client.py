@@ -54,7 +54,7 @@ class APIClient(EventDispatcher):
     def set_baby_magnet_mode(self, mode, brightness):
         self._emit(
             'set_led_panel_mode',
-            {'new_mode': mode, 'brightness': brightness},
+            {'new_mode': mode, 'brightness': int(brightness)},
         )
 
     def set_lullaby_mode(self, mode):
