@@ -42,6 +42,11 @@ class BluetoothConnectButton(Button):
         App.get_running_app().api_client.connect_bluetooth()
 
 
+class PowerOffButton(Button):
+    def on_press(self):
+        App.get_running_app().api_client.power_off_device()
+
+
 class ErrorLabel(Label):
     def __init__(self, *args, **kwargs):
         super(ErrorLabel, self).__init__(*args, **kwargs)

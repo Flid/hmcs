@@ -1,10 +1,11 @@
 import logging
 
-from hmcs.utils import read_configs
 from kivy.app import App
 from kivy.event import EventDispatcher
 from socketIO_client import LoggingNamespace, SocketIO
 from socketIO_client.exceptions import ConnectionError
+
+from hmcs.utils import read_configs
 
 log = logging.getLogger(__name__)
 
@@ -58,7 +59,10 @@ class APIClient(EventDispatcher):
         )
 
     def set_lullaby_mode(self, mode):
-        self._emit('set_lullaby_mode', mode)
+        self._emit('set_lullaby_mode', {'new_mode': mode})
 
     def connect_bluetooth(self):
-        self._emit('connect_bluetooth', None)
+        self._emit('connect_bluetooth', {})
+
+    def power_off_device(self):
+        self._emit('power_off_device', {})
