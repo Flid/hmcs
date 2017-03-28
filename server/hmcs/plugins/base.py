@@ -1,9 +1,11 @@
 import importlib
+import logging
 from collections import defaultdict
 
 from axel import Event
-
 from hmcs import config
+
+log = logging.getLogger(__name__)
 
 
 class PluginManager():
@@ -34,7 +36,14 @@ class PluginManager():
 
     def _on_socket_event_received(self, event_name, data):
         for callback in self._socket_event_subscribers[event_name]:
-            callback(data)
+            try:
+                callback(data)
+            except:
+                log.exception(
+                    'Failed to call method %s for event %s',
+                    callback,
+                    event_name,
+                )
 
 
 class PluginBase():

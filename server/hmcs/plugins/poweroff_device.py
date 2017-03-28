@@ -15,4 +15,4 @@ class PoweroffDevicePlugin(PluginBase):
 
     def power_off_device(self, data):
         log.info('Trying to power off...')
-        os.system(self._config['power_off_device_cmd'])
+        os.system(self._config['poweroff_device_cmd'])
