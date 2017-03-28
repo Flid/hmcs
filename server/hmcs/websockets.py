@@ -24,18 +24,26 @@ def on_set_led_panel_mode(data):
 
 
 @socketio.on('set_lullaby_mode', namespace='/')
-def on_set_lullaby_mode(new_mode):
+def on_set_lullaby_mode(data):
     app.plugin_manager.socket_event_received(
         'set_lullaby_mode',
-        {'new_mode': new_mode},
+        data,
     )
 
 
 @socketio.on('connect_bluetooth', namespace='/')
-def on_connect_bluetooth(new_mode):
+def on_connect_bluetooth(data):
     app.plugin_manager.socket_event_received(
         'connect_bluetooth',
-        {'new_mode': new_mode},
+        data,
+    )
+
+
+@socketio.on('power_off_device', namespace='/')
+def on_power_off_device(data):
+    app.plugin_manager.socket_event_received(
+        'power_off_device',
+        data,
     )
 
 
