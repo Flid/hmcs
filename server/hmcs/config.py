@@ -52,6 +52,7 @@ PLUGINS_ENABLED = OrderedDict([
     ('led_control_panel', 'hmcs.plugins.led_panel_control.LedPanelControlPlugin'),
     ('bt_connect', 'hmcs.plugins.bt_connect.BluetoothConnectPlugin'),
     ('lullaby_control', 'hmcs.plugins.lullaby_control.LullabyControlPlugin'),
+    ('poweroff_device', 'hmcs.plugins.poweroff_device.PoweroffDevicePlugin'),
 ])
 
 
@@ -66,5 +67,8 @@ PLUGIN_CONFIG = {
     },
     'lullaby_control': {
         'file_path': os.environ['LULLABY_FILE_PATH'],
+    },
+    'poweroff_device': {
+        'poweroff_device_cmd': os.environ['POWEROFF_DEVICE_CMD'],
     },
 }
